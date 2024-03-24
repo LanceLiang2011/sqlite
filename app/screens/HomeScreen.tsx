@@ -1,4 +1,10 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useCallback, useState } from "react";
 import { HomeScreenProps } from "../../App";
 import { Product, useDB } from "../hooks/useDB";
@@ -17,10 +23,15 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
     }, [])
   );
   const renderItem = ({ item }: { item: Product }) => (
-    <View style={{ flexDirection: "row" }}>
+    <TouchableOpacity
+      style={{ flexDirection: "row" }}
+      onPress={() =>
+        navigation.navigate("ProductDetail", { id: item.id!.toString() })
+      }
+    >
       <Text>{item.name}</Text>
       <Text> ${item.price}</Text>
-    </View>
+    </TouchableOpacity>
   );
   return (
     <View style={styles.container}>
